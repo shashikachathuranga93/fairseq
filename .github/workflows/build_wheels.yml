@@ -42,6 +42,7 @@ jobs:
       new_version: ${{ steps.get-next-version-and-tag.outputs.version }}
       new_tag: ${{ steps.get-next-version-and-tag.outputs.tag }}
 
+
   build_wheels:
     name: Build wheels on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
