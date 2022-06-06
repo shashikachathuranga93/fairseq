@@ -38,4 +38,6 @@ jobs:
         run : |
           echo "current folder = $PWD"
           echo "current branch = $(git branch --show-current)"
-          output=$(python3 release_utils.py --release-type ${{ github.event.inputs.name }} --update-version)
+          release_type=$( if ${{ github.event_name == 'push' }}; then echo "patch"; else {{ github.event.inputs.name }}; fi)
+          echo "release type = $release_type"
+          output=$(python3 release_utils.py --release-type $release_type --update-version)
