@@ -1,12 +1,12 @@
 name: Fairseq Release
 
 on:
-  workflow_dispatch:
-    inputs:
-      name:
-        description: 'Release Type'
-        default: 'patch'
-        required: true
+        #  workflow_dispatch:
+        #    inputs:
+        #      name:
+        #        description: 'Release Type'
+        #        default: 'patch'
+        #        required: true
 
   push:
     branches:
