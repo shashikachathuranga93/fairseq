@@ -2,8 +2,6 @@ import argparse
 import re
 from typing import Tuple
 
-from setup import find_version
-
 
 def get_next_version(release_type) -> Tuple[Tuple[int, int, int], str, str]:
     current_ver = find_version("fairseq/version.txt")
@@ -27,6 +25,10 @@ def get_next_version(release_type) -> Tuple[Tuple[int, int, int], str, str]:
     new_tag_str = "v" + new_version_str
     return new_version_tuple, new_version_str, new_tag_str
 
+def find_version(version_file_path) -> str:
+    with open(version_file_path) as f:
+        version = f.read().strip()
+        return version
 
 def update_version(new_version_str) -> None:
     """
