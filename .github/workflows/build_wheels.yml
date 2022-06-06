@@ -31,3 +31,11 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.8'
+
+      # update the version number in version.txt
+      - name: update version
+        id: update-version
+        run : |
+          echo "current folder = $PWD"
+          echo "current branch = $(git branch --show-current)"
+          output=$(python3 release_utils.py --release-type ${{ github.event.inputs.name }} --update-version)
