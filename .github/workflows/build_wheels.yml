@@ -1,12 +1,12 @@
 name: Fairseq Release
 
 on:
-        #  workflow_dispatch:
-        #    inputs:
-        #      name:
-        #        description: 'Release Type'
-        #        default: 'patch'
-        #        required: true
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Release Type'
+        default: 'patch'
+        required: true
 
   push:
     branches:
@@ -19,7 +19,7 @@ jobs:
   build_wheels:
     name: Build wheels on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    needs: get_next_version
+    #needs: get_next_version
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
