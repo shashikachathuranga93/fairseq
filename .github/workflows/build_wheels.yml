@@ -19,6 +19,7 @@ jobs:
   build_wheels:
     name: Build wheels on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+# TODO: uncomment
     #needs: get_next_version
     strategy:
       matrix:
@@ -73,4 +74,5 @@ jobs:
           TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
+# TODO: uncomment to test
 #          python3 -m twine upload --repository pypi dist/*
