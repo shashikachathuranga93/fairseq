@@ -76,3 +76,19 @@ jobs:
         run: |
 # TODO: uncomment to test
 #          python3 -m twine upload --repository pypi dist/*
+
+      # add and commit the updated version.py to main
+      - name: add and commit to main
+        uses: EndBug/add-and-commit@v7.5.0
+        with:
+          author_name: ${{ secrets.AUTHOR_NAME }}
+          author_email: ${{ secrets.AUTHOR_EMAIL }}
+
+          branch: main
+          default_author: github_actor
+          message: '${{ needs.get_next_version.outputs.new_version }} release'
+          pathspec_error_handling: exitAtEnd
+
+          # Arguments for the git pull command. Use NO-PULL to avoid the action pulling at all.
+          # pull: 'NO-PULL'
+          tag: '${{ needs.get_next_version.outputs.new_tag }}'
