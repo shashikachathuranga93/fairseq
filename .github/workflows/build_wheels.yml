@@ -41,3 +41,16 @@ jobs:
           release_type=$( if ${{ github.event_name == 'push' }}; then echo "patch"; else {{ github.event.inputs.name }}; fi)
           echo "release type = $release_type"
           output=$(python3 release_utils.py --release-type $release_type --update-version)
+
+      - name: Upgrade pip
+        run: |
+          python3 -m pip install --upgrade pip
+
+      - name: Create Source Distribution
+        run: |
+          pip install setuptools wheel twine
+          python3 setup.py sdist
+
+      - name: Install cibuildwheel
+        run: |
+          python3 -m pip install cibuildwheel
