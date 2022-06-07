@@ -30,7 +30,8 @@ jobs:
       - name: get next version and tag
         id: get-next-version-and-tag
         run: |
-          output=$(python3 release_utils.py --release-type ${{ github.event.inputs.name }})
+          release_type=$( if ${{ github.event_name == 'push' }}; then echo "patch"; else {{ github.event.inputs.name }}; fi)
+          output=$(python3 release_utils.py --release-type $release_type)
           echo $output
           new_version=$(echo $output | awk '{print $1}')
           new_tag=$(echo $output | awk '{print $2}')
