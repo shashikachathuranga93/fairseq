@@ -30,6 +30,7 @@ jobs:
       - name: get next version and tag
         id: get-next-version-and-tag
         run: |
+          # TODO: revert this change
           release_type=$( if ${{ github.event_name == 'push' }}; then echo "patch"; else {{ github.event.inputs.name }}; fi)
           output=$(python3 release_utils.py --release-type $release_type)
           echo $output
@@ -112,11 +113,19 @@ jobs:
           author_email: ${{ secrets.AUTHOR_EMAIL }}
 
           # TODO: change this to main once shipit is disabled.
-          branch: ${{ needs.get_next_version.outputs.new_version }}
+          # TODO: change to version
+          # branch: ${{ needs.get_next_version.outputs.new_version }}
+          new_branch: dianaml_testing
           default_author: github_actor
           message: '${{ needs.get_next_version.outputs.new_version }} release'
           pathspec_error_handling: exitAtEnd
 
           # Arguments for the git pull command. Use NO-PULL to avoid the action pulling at all.
           # pull: 'NO-PULL'
+          tag: '${{ needs.get_next_version.outputs.new_tag }}'
+
+      # create the release on github
+      - name: create release on github
+        uses: ncipollo/release-action@v1
+        with:
           tag: '${{ needs.get_next_version.outputs.new_tag }}'
