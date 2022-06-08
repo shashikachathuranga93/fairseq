@@ -48,7 +48,7 @@ jobs:
     name: Build wheels on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 # TODO: uncomment
-    #needs: get_next_version
+    needs: get_next_version
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
